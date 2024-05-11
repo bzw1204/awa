@@ -1,30 +1,45 @@
 <script setup lang="ts">
-import Versions from './components/Versions.vue'
+import type { GlobalThemeOverrides } from 'naive-ui'
+import { RouteListener } from '@views/utils/route'
 
-const ipcHandle = () => window.electron.ipcRenderer.send('ping')
+const { globalTheme } = storeToRefs(useSettingStore())
+const darkThemeOverrides: GlobalThemeOverrides = {
+  common: {
+    infoColor: '#2080F0FF',
+    infoColorHover: '#4098FCFF',
+    infoColorPressed: '#1060C9FF',
+    infoColorSuppl: '#4098FCFF',
+
+    successColor: '#18A058FF',
+    successColorHover: '#36AD6AFF',
+    successColorPressed: '#0C7A43FF',
+    successColorSuppl: '#36AD6AFF',
+
+    warningColor: '#F0A020FF',
+    warningColorHover: '#FCB040FF',
+    warningColorPressed: '#C97C10FF',
+    warningColorSuppl: '#FCB040FF',
+    errorColor: '#D03050FF',
+    errorColorHover: '#DE576DFF',
+    errorColorPressed: '#AB1F3FFF',
+    errorColorSuppl: '#DE576DFF'
+  }
+}
+
+onMounted(() => {
+  RouteListener.on((currentRoute) => {
+    console.log('currentRoute', currentRoute)
+  })
+})
+onUnmounted(RouteListener.destroyed)
 </script>
 
 <template>
-  <img alt="logo" class="logo" src="./assets/electron.svg">
-  <div class="creator">
-    Powered by electron-vite
-  </div>
-  <div class="text">
-    Build an Electron app with
-    <span class="vue">Vue</span>
-    and
-    <span class="ts">TypeScript</span>
-  </div>
-  <p class="tip">
-    Please try pressing <code>F12</code> to open the devTool
-  </p>
-  <div class="actions">
-    <div class="action">
-      <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">Documentation</a>
-    </div>
-    <div class="action">
-      <a target="_blank" rel="noreferrer" @click="ipcHandle">Send IPC</a>
-    </div>
-  </div>
-  <Versions />
+  <!-- 调整 naive-ui 的字重配置 -->
+  <n-config-provider :theme="globalTheme" :theme-overrides="darkThemeOverrides">
+    <naive-provider>
+      <router-view />
+    </naive-provider>
+    <n-global-style />
+  </n-config-provider>
 </template>

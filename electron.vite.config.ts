@@ -7,25 +7,35 @@ import Components from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import { XNaiveUIResolver } from '@skit/x.naive-ui/unplugin'
 import MetaLayouts from 'vite-plugin-vue-meta-layouts'
+import Icons from 'unplugin-icons/vite'
+import { FileSystemIconLoader } from 'unplugin-icons/loaders'
+import IconsResolver from 'unplugin-icons/resolver'
 
 export default defineConfig({
   main: {
-    plugins: [externalizeDepsPlugin()],
+    plugins: [externalizeDepsPlugin()]
   },
   preload: {
-    plugins: [externalizeDepsPlugin()],
+    plugins: [externalizeDepsPlugin()]
   },
   renderer: {
     resolve: {
       alias: {
-        '@renderer': resolve('src/renderer/src'),
-      },
+        '@views': resolve('src/renderer/src'),
+        '@root': resolve('')
+      }
     },
     plugins: [
       vue(),
       UnoCSS(),
       MetaLayouts({
-        defaultLayout: 'MainLayout',
+        defaultLayout: 'MainLayout'
+      }),
+      Icons({
+        autoInstall: true,
+        customCollections: {
+          custom: FileSystemIconLoader('src/assets/icons')
+        }
       }),
       AutoImport({
         imports: [
@@ -33,8 +43,8 @@ export default defineConfig({
           'vue-router',
           'pinia',
           {
-            'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar'],
-          },
+            'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar']
+          }
         ],
         dirs: ['src/store'],
         include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
@@ -42,8 +52,8 @@ export default defineConfig({
         eslintrc: {
           enabled: false,
           filepath: 'eslintrc-auto-import.json',
-          globalsPropValue: true,
-        },
+          globalsPropValue: true
+        }
       }),
       Components({
         extensions: ['vue', 'md'],
@@ -52,8 +62,9 @@ export default defineConfig({
         resolvers: [
           NaiveUiResolver(),
           XNaiveUIResolver(),
-        ],
-      }),
-    ],
-  },
+          IconsResolver({ prefix: false, customCollections: ['custom', 'formula'] })
+        ]
+      })
+    ]
+  }
 })

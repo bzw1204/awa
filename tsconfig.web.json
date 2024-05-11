@@ -4,15 +4,20 @@
     "composite": true,
     "baseUrl": ".",
     "paths": {
-      "@renderer/*": [
+      "@views/*": [
         "src/renderer/src/*"
-      ]
-    }
+      ],
+      "@root/*": ["./*"]
+    },
+    "types": [
+      "naive-ui/volar",
+      "@skit/x.naive-ui/types/volar.d.ts",
+      "vite-plugin-vue-meta-layouts/client"
+    ]
   },
   "include": [
-    "src/renderer/src/env.d.ts",
+    "src/preload/*.d.ts",
     "src/renderer/src/**/*",
-    "src/renderer/src/**/*.vue",
-    "src/preload/*.d.ts"
+    "src/renderer/src/types/*.d.ts"
   ]
 }
