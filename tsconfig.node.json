@@ -4,7 +4,10 @@
     "composite": true,
     "moduleResolution": "Bundler",
     "types": [
-      "electron-vite/node"
+      "naive-ui/volar",
+      "electron-vite/node",
+      "@skit/x.naive-ui/types/volar.d.ts",
+      "vite-plugin-vue-meta-layouts/client"
     ]
   },
   "include": [
