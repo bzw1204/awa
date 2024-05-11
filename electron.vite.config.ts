@@ -34,7 +34,7 @@ export default defineConfig({
       Icons({
         autoInstall: true,
         customCollections: {
-          custom: FileSystemIconLoader('src/assets/icons')
+          custom: FileSystemIconLoader('src/renderer/src/assets/icons')
         }
       }),
       AutoImport({
@@ -62,7 +62,7 @@ export default defineConfig({
         resolvers: [
           NaiveUiResolver(),
           XNaiveUIResolver(),
-          IconsResolver({ prefix: false, customCollections: ['custom', 'formula'] })
+          IconsResolver({ prefix: false, customCollections: ['custom'] })
         ]
       })
     ]

@@ -11,6 +11,7 @@
     },
     "types": [
       "naive-ui/volar",
+      "unplugin-icons/types/vue",
       "@skit/x.naive-ui/types/volar.d.ts",
       "vite-plugin-vue-meta-layouts/client"
     ]
